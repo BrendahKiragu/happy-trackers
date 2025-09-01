@@ -2,41 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* JIELEWE Design System - Child-friendly colors and styles
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 95 50% 98%;
+    --foreground: 220 15% 25%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 15% 25%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 15% 25%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Friendly green theme matching the robot */
+    --primary: 135 60% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 135 40% 75%;
+    --primary-glow: 135 70% 45%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Cheerful secondary colors */
+    --secondary: 45 95% 70%;
+    --secondary-foreground: 220 15% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 135 25% 92%;
+    --muted-foreground: 220 10% 50%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 200 85% 65%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Soft destructive for gentle corrections */
+    --destructive: 15 75% 65%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 135 20% 88%;
+    --input: 135 25% 95%;
+    --ring: 135 60% 55%;
 
-    --radius: 0.5rem;
+    /* Emotion colors */
+    --happy: 45 95% 70%;
+    --sad: 200 85% 65%;
+    --angry: 15 75% 65%;
+    --excited: 280 85% 75%;
+    --calm: 135 40% 75%;
+    --worried: 25 85% 70%;
+
+    /* Gradients for playful backgrounds */
+    --gradient-hero: linear-gradient(135deg, hsl(135, 60%, 85%), hsl(200, 70%, 90%));
+    --gradient-card: linear-gradient(145deg, hsl(0, 0%, 100%), hsl(135, 25%, 98%));
+    --gradient-button: linear-gradient(145deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+
+    /* Shadows for depth */
+    --shadow-soft: 0 4px 20px hsl(135, 60%, 55%, 0.15);
+    --shadow-button: 0 6px 25px hsl(135, 60%, 55%, 0.25);
+    --shadow-card: 0 8px 30px hsl(220, 15%, 25%, 0.08);
+
+    /* Animation values */
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-gentle: all 0.2s ease-out;
+
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -55,42 +82,10 @@ All colors MUST be HSL.
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
+  /* Keep light theme only for kids - no dark mode needed */
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 95 50% 98%;
+    --foreground: 220 15% 25%;
   }
 }
 
@@ -100,6 +95,48 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    background: linear-gradient(135deg, hsl(135, 60%, 95%), hsl(200, 70%, 98%));
+    min-height: 100vh;
+  }
+
+  /* Kid-friendly fonts */
+  .font-kid {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-shadow-soft {
+    text-shadow: 0 2px 4px hsl(220, 15%, 25%, 0.1);
+  }
+
+  .bounce-gentle {
+    animation: bounce-gentle 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce-gentle {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-5px);
+    }
+    60% {
+      transform: translateY(-3px);
+    }
+  }
+
+  .pulse-heart {
+    animation: pulse-heart 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-heart {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
   }
 }
