@@ -83,23 +83,32 @@ const useSentimentAnalysis = () => {
     if (!text.trim()) return null;
 
     setIsLoading(true);
+    console.log('Starting sentiment analysis for:', text);
     
     try {
-      // Initialize the sentiment analysis pipeline
-      const classifier = await pipeline('sentiment-analysis', 'Xenova/distilbert-base-uncased-finetuned-sst-2-english');
+      console.log('Initializing AI model...');
+      // Use a lighter, more reliable model
+      const classifier = await pipeline('sentiment-analysis', 'Xenova/distilbert-base-uncased-finetuned-sst-2-english', {
+        device: 'wasm',
+        dtype: 'q8'
+      });
       
+      console.log('AI model loaded, analyzing text...');
       // Analyze the text
       const result = await classifier(text);
+      console.log('Analysis result:', result);
       
       // Get the first result (highest confidence)
       const topResult = Array.isArray(result) ? result[0] : result;
       
       // Map to our emotion system
       const emotion = mapToEmotion(topResult);
+      console.log('Mapped emotion:', emotion);
       
       return emotion;
     } catch (error) {
       console.error('Error analyzing sentiment:', error);
+      console.log('Falling back to keyword analysis');
       
       // Fallback: simple keyword-based analysis for demo
       return analyzeFallback(text);
